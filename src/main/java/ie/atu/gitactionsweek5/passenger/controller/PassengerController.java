@@ -14,8 +14,6 @@ import java.util.Optional;
 public class PassengerController{
 
     private final PassengerService service;
-
-
     public PassengerController(PassengerService service) {this.service = service;}
 
     @GetMapping("/{id}")
@@ -29,8 +27,6 @@ public class PassengerController{
             return ResponseEntity.notFound().build();
         }
     }
-
-
     @PostMapping
     public ResponseEntity<Passenger> create(@RequestBody Passenger p) {
         Passenger created = service.create(p);

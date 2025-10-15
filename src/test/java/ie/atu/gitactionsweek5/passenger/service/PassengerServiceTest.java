@@ -1,8 +1,7 @@
 package ie.atu.gitactionsweek5.passenger.service;
 
 import ie.atu.gitactionsweek5.passenger.model.Passenger;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.Optional;
 
