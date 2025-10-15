@@ -11,7 +11,7 @@ import lombok.*;
 public class Passenger {
 
     @NotBlank @Size(max = 40)
-    private String PassengerId;
+    private String passengerId;
 
     @NotBlank @Size(max = 60)
     private String name;
