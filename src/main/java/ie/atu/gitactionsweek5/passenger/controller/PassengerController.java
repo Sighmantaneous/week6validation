@@ -27,13 +27,31 @@ public class PassengerController{
             return ResponseEntity.notFound().build();
         }
     }
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<Passenger> create(@RequestBody Passenger p) {
         Passenger created = service.create(p);
         return ResponseEntity
                 .created(URI.create("/api/passengers/" + created.getPassengerId()))
                 .body(created);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Passenger> update(@RequestBody Passenger p) {
+        Optional<Passenger> maybe = service.findById(p.getPassengerId());
+        if (maybe.isPresent()) {
+            Passenger updated = maybe.get();
+            updated.setName(p.getName());
+            updated.setEmail(p.getEmail());
+            return ResponseEntity.ok(updated);
+        }
+        else  {
+            return ResponseEntity.notFound().build();
+        }
+
+
+    }
+
+
 
 
 }
