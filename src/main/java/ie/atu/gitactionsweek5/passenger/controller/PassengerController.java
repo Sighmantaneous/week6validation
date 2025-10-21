@@ -47,6 +47,16 @@ public class PassengerController{
 
 
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Passenger> delete(@PathVariable String id){
+        Optional<Passenger> maybe = service.findById(id);
+        if (maybe.isPresent()) {
+            service.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 

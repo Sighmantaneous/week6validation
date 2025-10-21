@@ -44,5 +44,14 @@ public class PassengerService {
             return Optional.empty();
         }
     }
+    public Optional<Passenger> deleteById(String id){
+        for (Passenger p : store) {
+            if (p.getPassengerId().equals(id)) {
+                store.remove(p);
+                return Optional.of(p);
+            }
+        }
+        return Optional.empty();
+    }
 
 }
