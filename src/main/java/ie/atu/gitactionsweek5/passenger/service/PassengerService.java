@@ -1,6 +1,8 @@
 package ie.atu.gitactionsweek5.passenger.service;
 
 
+import ie.atu.gitactionsweek5.errorHandling.DuplicateException;
+import ie.atu.gitactionsweek5.errorHandling.NoPassengerException;
 import ie.atu.gitactionsweek5.passenger.model.Passenger;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,7 @@ public class PassengerService {
 
     public Passenger create(Passenger p) {
         if (findById(p.getPassengerId()).isPresent()) {
-            throw new IllegalStateException("Passenger with id " + p.getPassengerId() + " already exists");
+            throw new DuplicateException("Passenger with id " + p.getPassengerId() + " already exists");
         }
         store.add(p);
         return p;
@@ -40,12 +42,14 @@ public class PassengerService {
             update.setName(p.getName());
             update.setEmail(p.getEmail());
             return Optional.of(update);
-        } else {
-            return Optional.empty();
-        }
+        } else
+            throw new NoPassengerException("Passenger with id " + p.getPassengerId() + " does not exist");
+
     }
     public Optional<Passenger> deleteById(String id){
         for (Passenger p : store) {
+
+
             if (p.getPassengerId().equals(id)) {
                 store.remove(p);
                 return Optional.of(p);
