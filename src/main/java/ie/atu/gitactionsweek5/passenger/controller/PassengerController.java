@@ -5,6 +5,7 @@ import ie.atu.gitactionsweek5.passenger.model.Passenger;
 import ie.atu.gitactionsweek5.passenger.service.PassengerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.net.URI;
 import java.util.Optional;
@@ -17,7 +18,7 @@ public class PassengerController{
     public PassengerController(PassengerService service) {this.service = service;}
 
     @GetMapping("/{id}")
-    public ResponseEntity<Passenger> getOne(@PathVariable String id) {
+    public ResponseEntity<Passenger> getOne(@PathVariable @Valid String id) {
         Optional<Passenger> maybe = service.findById(id);
 
         if (maybe.isPresent()) {
@@ -28,7 +29,7 @@ public class PassengerController{
         }
     }
     @PostMapping()
-    public ResponseEntity<Passenger> create(@RequestBody Passenger p) {
+    public ResponseEntity<Passenger> create(@RequestBody @Valid Passenger p) {
         Passenger created = service.create(p);
         return ResponseEntity
                 .created(URI.create("/api/passengers/" + created.getPassengerId()))
@@ -36,7 +37,7 @@ public class PassengerController{
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Passenger> update(@RequestBody Passenger p) {
+    public ResponseEntity<Passenger> update(@RequestBody @Valid Passenger p) {
         Optional<Passenger> maybe = service.update(p);
         if (maybe.isPresent()) {
             return ResponseEntity.ok(maybe.get());
@@ -48,7 +49,7 @@ public class PassengerController{
 
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Passenger> delete(@PathVariable String id){
+    public ResponseEntity<Passenger> delete(@PathVariable @Valid String id){
         Optional<Passenger> maybe = service.findById(id);
         if (maybe.isPresent()) {
             service.deleteById(id);
